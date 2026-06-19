@@ -1,0 +1,106 @@
+{
+  "name": "antigravity-cli-companion",
+  "displayName": "Antigravity CLI Companion - Unofficial",
+  "description": "Compose and send input to Google's Antigravity CLI (agy) from VSCode",
+  "version": "0.1.0",
+  "publisher": "amanat-singh",
+  "icon": "media/icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/antigravity-cli-companion.git"
+  },
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": ["Other"],
+  "activationEvents": ["onStartupFinished"],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "configuration": {
+      "title": "AGY Composer",
+      "properties": {
+        "agy-composer.cliPath": {
+          "type": "string",
+          "default": "agy",
+          "description": "Path to the agy CLI binary. Defaults to resolving 'agy' from PATH."
+        }
+      }
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "agy-composer",
+          "title": "AGY Composer",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "agy-composer": [
+        {
+          "id": "agy-composer.panel",
+          "name": "Composer",
+          "type": "webview"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "agy-composer.addSelection",
+        "title": "Add Selection to AGY Context",
+        "category": "AGY"
+      },
+      {
+        "command": "agy-composer.openComposer",
+        "title": "Open AGY Composer",
+        "category": "AGY"
+      },
+      {
+        "command": "agy-composer.newSession",
+        "title": "New AGY Session",
+        "category": "AGY"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "agy-composer.addSelection",
+          "when": "editorHasSelection",
+          "group": "agy@1"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "agy-composer.addSelection",
+          "when": "editorHasSelection"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "agy-composer.openComposer",
+        "key": "ctrl+alt+g",
+        "mac": "cmd+alt+g"
+      },
+      {
+        "command": "agy-composer.addSelection",
+        "key": "alt+g",
+        "when": "editorHasSelection"
+      }
+    ]
+  },
+  "scripts": {
+    "compile": "node esbuild.js",
+    "package": "node esbuild.js --production",
+    "watch": "node esbuild.js --watch",
+    "check-types": "tsc --noEmit",
+    "vscode:prepublish": "npm run package"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.90.0",
+    "esbuild": "^0.21.5",
+    "typescript": "^5.4.5"
+  }
+}

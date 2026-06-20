@@ -1,7 +1,7 @@
 (function () {
   const vscode = acquireVsCodeApi();
 
-  let state = { mode: 'bypass', chips: [], sessionActive: false };
+  let state = { mode: 'default', chips: [], sessionActive: false };
   let wasEverActive = false;
 
   const welcomeScreen  = document.getElementById('welcome-screen');

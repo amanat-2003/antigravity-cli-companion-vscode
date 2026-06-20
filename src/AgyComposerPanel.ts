@@ -16,6 +16,7 @@ const SLASH_COMMANDS: vscode.QuickPickItem[] = [
   { label: '/diff',        description: 'View diffs' },
   { label: '/resume',      description: 'Resume a conversation' },
   { label: '/help',        description: 'Show help' },
+  { label: '/artifact',    description: 'Manage artifacts' },
 ];
 
 interface ModeItem extends vscode.QuickPickItem {
@@ -33,7 +34,7 @@ export class AgyComposerPanel implements vscode.WebviewViewProvider {
 
   private view?: vscode.WebviewView;
   private chips: ContextChip[] = [];
-  private mode: SessionMode = 'bypass';
+  private mode: SessionMode = 'default';
   private session: TerminalSession;
 
   constructor(private readonly context: vscode.ExtensionContext) {

@@ -1,5 +1,7 @@
 # AGY Input Composer
 
+![AGY Input Composer Demo](joined_hq.gif)
+
 A VSCode extension for composing and sending input to [Google's Antigravity CLI](https://antigravity.google) (`agy`) from a sidebar panel.
 
 The extension handles **input only** — all output stays in the terminal where `agy` runs. The goal is to make it faster to compose messages, attach code context, and switch modes without leaving your editor.

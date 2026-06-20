@@ -230,7 +230,7 @@ export class AgyComposerPanel implements vscode.WebviewViewProvider {
       <div class="field">
         <textarea
           id="input"
-          placeholder="type your message...&#10;&#10;Enter → send   ·   Shift+Enter → new line&#10;&#10;Please wait for Antigravity CLI to Sign In before sending your 1st mesage."
+          placeholder="type your message...&#10;&#10;Enter → send   ·   Shift+Enter → new line&#10;&#10;Please wait for Antigravity CLI to Sign In before sending your 1st message."
           rows="5"
           spellcheck="false"
         ></textarea>

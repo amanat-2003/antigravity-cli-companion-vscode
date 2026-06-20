@@ -2,7 +2,7 @@
   "name": "antigravity-cli-companion",
   "displayName": "Antigravity CLI Companion - Unofficial",
   "description": "Compose and send input to Google's Antigravity CLI (agy) from VSCode",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "amanat-singh",
   "icon": "media/icon.png",
   "repository": {

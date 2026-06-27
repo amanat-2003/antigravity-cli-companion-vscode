@@ -6,6 +6,14 @@ A fast, safe, and minimal VS Code companion for [Google's Antigravity CLI](https
 
 **🔒 Safe & Open Source**: This extension handles **input only**. It never parses or captures `agy`'s output. All command execution and output stays visible directly in your integrated terminal. The code is 100% open source and [available on GitHub](https://github.com/amanat-2003/antigravity-cli-companion-vscode).
 
+## Why I built this
+
+- **The Ecosystem**: In India, Jio users get Gemini Advanced (Gemini Pro) included with their recharges, making it virtually free to use Google Antigravity. However, using Antigravity natively requires switching away from VS Code, which is the default editor for most.
+- **Efficiency over UI**: The Antigravity CLI uses significantly fewer tokens compared to the Agent UI, making it highly efficient. 
+- **Lack of Existing Tools**: I searched the Marketplace but only found the deprecated "Gemini CLI Companion" (since Gemini CLI was replaced by Antigravity CLI). Other available tools were either untrustworthy or had broken functionality. I needed something robust, so I built this and tested every single edge case.
+- **Solving CLI Pain Points**: Typing long prompts, managing new lines, and switching modes (Bypass, Sandbox) in a terminal is frustrating. The biggest hurdle was code context—copying and pasting code into the terminal breaks flow. This extension solves that by letting you select code and press `Alt+G` to instantly add it as a context chip.
+- **Resilience & UX**: I designed the UI to be clean, boxy, and robotic, optimized for low latency. If you accidentally close the terminal, the extension gracefully recovers by auto-starting a new session on your next message.
+
 ## Usage
 
 1. **Open**: Click the hexagon **A** icon in the activity bar or press `Cmd+Alt+G`.

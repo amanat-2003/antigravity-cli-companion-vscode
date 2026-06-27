@@ -22,9 +22,9 @@
   "main": "./dist/extension.js",
   "contributes": {
     "configuration": {
-      "title": "AGY Composer",
+      "title": "AGY Companion",
       "properties": {
-        "agy-composer.cliPath": {
+        "agy-companion.cliPath": {
           "type": "string",
           "default": "agy",
           "description": "Path to the agy CLI binary. Defaults to resolving 'agy' from PATH."
@@ -34,34 +34,34 @@
     "viewsContainers": {
       "activitybar": [
         {
-          "id": "agy-composer",
-          "title": "AGY Composer",
+          "id": "agy-companion",
+          "title": "AGY Companion",
           "icon": "media/icon.svg"
         }
       ]
     },
     "views": {
-      "agy-composer": [
+      "agy-companion": [
         {
-          "id": "agy-composer.panel",
-          "name": "Composer",
+          "id": "agy-companion.panel",
+          "name": "Companion",
           "type": "webview"
         }
       ]
     },
     "commands": [
       {
-        "command": "agy-composer.addSelection",
+        "command": "agy-companion.addSelection",
         "title": "Add Selection to AGY Context",
         "category": "AGY"
       },
       {
-        "command": "agy-composer.openComposer",
-        "title": "Open AGY Composer",
+        "command": "agy-companion.openCompanion",
+        "title": "Open AGY Companion",
         "category": "AGY"
       },
       {
-        "command": "agy-composer.newSession",
+        "command": "agy-companion.newSession",
         "title": "New AGY Session",
         "category": "AGY"
       }
@@ -69,26 +69,26 @@
     "menus": {
       "editor/context": [
         {
-          "command": "agy-composer.addSelection",
+          "command": "agy-companion.addSelection",
           "when": "editorHasSelection",
           "group": "agy@1"
         }
       ],
       "commandPalette": [
         {
-          "command": "agy-composer.addSelection",
+          "command": "agy-companion.addSelection",
           "when": "editorHasSelection"
         }
       ]
     },
     "keybindings": [
       {
-        "command": "agy-composer.openComposer",
+        "command": "agy-companion.openCompanion",
         "key": "ctrl+alt+g",
         "mac": "cmd+alt+g"
       },
       {
-        "command": "agy-composer.addSelection",
+        "command": "agy-companion.addSelection",
         "key": "alt+g",
         "when": "editorHasSelection"
       }

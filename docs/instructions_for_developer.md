@@ -76,12 +76,12 @@ npm install -g @vscode/vsce
 vsce package --no-dependencies
 
 # Install into VSCode
-code --install-extension agy-input-composer-0.1.0.vsix
+code --install-extension agy-companion-0.1.0.vsix
 ```
 
 Reload VSCode after installing. To uninstall:
 ```bash
-code --uninstall-extension amanat-singh.agy-input-composer
+code --uninstall-extension amanat-singh.agy-companion
 ```
 
 ---
@@ -125,7 +125,7 @@ vsce publish --pre-release
 ```
 
 The extension will be live at:
-`https://marketplace.visualstudio.com/items?itemName=<your-publisher-id>.agy-input-composer`
+`https://marketplace.visualstudio.com/items?itemName=<your-publisher-id>.agy-companion`
 
 ### Updating an existing publication
 
@@ -144,6 +144,6 @@ vsce publish minor
 | Problem | Fix |
 |---|---|
 | Icon not showing in activity bar | Reload the Extension Development Host window |
-| `agy: command not found` in terminal | Set `agy-composer.cliPath` to the absolute path of the `agy` binary |
+| `agy: command not found` in terminal | Set `agy-companion.cliPath` to the absolute path of the `agy` binary |
 | Panel blank after reload | Open the Command Palette → **Developer: Reload Webviews** |
 | `vsce package` fails | Ensure `README.md` exists and `publisher` is set in `package.json` |

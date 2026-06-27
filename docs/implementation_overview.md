@@ -1,6 +1,6 @@
 # Implementation Overview
 
-This document describes the architecture and key flows of the AGY Input Composer extension for developers and AI agents working on the codebase.
+This document describes the architecture and key flows of the Antigravity CLI Companion - Unofficial extension for developers and AI agents working on the codebase.
 
 ---
 
@@ -17,7 +17,7 @@ The core mechanism is VSCode's `terminal.sendText(text, true)` API, which is equ
 ```
 src/
   extension.ts          Entry point. Calls activate(), registers the WebviewViewProvider
-                        and three commands (openComposer, addSelection, newSession).
+                        and three commands (openCompanion, addSelection, newSession).
 
   types.ts              All shared TypeScript types:
                           ContextChip       — a piece of attached code context
@@ -26,7 +26,7 @@ src/
                           WebviewMessage    — messages FROM the webview TO the host
                           HostMessage       — messages FROM the host TO the webview
 
-  AgyComposerPanel.ts   WebviewViewProvider. The central coordinator.
+  AgyCompanionPanel.ts   WebviewViewProvider. The central coordinator.
                         Owns: chips[], mode, TerminalSession instance.
                         Renders the webview HTML (with CSP/nonce).
                         Handles all WebviewMessages via onMessage().
@@ -38,14 +38,14 @@ src/
                         sendText(text): sends text to the running session.
                         handleTerminalClose(): called when VSCode fires onDidCloseTerminal.
 
-  contextComposer.ts    Pure function: composeMessage(message, chips) → string.
+  contextCompanion.ts    Pure function: composeMessage(message, chips) → string.
                         Prepends chips as a labelled context block if any are present.
 
 media/
   icon.svg              Activity bar icon. Flat hexagon outline with letter A.
                         Uses currentColor — VSCode applies theme colouring automatically.
 
-  index.html            Webview HTML template. Rendered by AgyComposerPanel.renderHtml().
+  index.html            Webview HTML template. Rendered by AgyCompanionPanel.renderHtml().
                         Contains CSP meta tag, stylesheet link, DOM skeleton, script tag.
                         Nonce injected at render time for CSP compliance.
 
@@ -96,7 +96,7 @@ Webview → Host:   vscode.postMessage(msg: WebviewMessage)   [acquireVsCodeApi(
 ```
 User clicks Send
   → webview posts { type: 'send', message }
-  → AgyComposerPanel.handleSend()
+  → AgyCompanionPanel.handleSend()
       → showModePicker() — VSCode QuickPick (Bypass Approvals pre-selected)
       → user picks mode
       → TerminalSession.start(cliPath, mode)
@@ -104,7 +104,7 @@ User clicks Send
           → terminal.show(true)             ← preserveFocus keeps panel active
           → terminal.sendText("agy [--flag]", true)
       → await 1500ms                        ← wait for agy to boot
-      → composeMessage(message, chips)      ← contextComposer.ts
+      → composeMessage(message, chips)      ← contextCompanion.ts
       → TerminalSession.sendText(composed)
       → chips = []
       → post clearAfterSend + updated state to webview
@@ -115,7 +115,7 @@ User clicks Send
 ```
 User clicks Send
   → webview posts { type: 'send', message }
-  → AgyComposerPanel.handleSend()
+  → AgyCompanionPanel.handleSend()
       → TerminalSession.isActive() === true
       → composeMessage(message, chips)
       → TerminalSession.sendText(composed)
@@ -127,8 +127,8 @@ User clicks Send
 
 ```
 User selects text → Cmd+Alt+Shift+G (or right-click → Add Selection)
-  → command 'agy-composer.addSelection' fires
-  → AgyComposerPanel.addSelectionChip()
+  → command 'agy-companion.addSelection' fires
+  → AgyCompanionPanel.addSelectionChip()
       → reads vscode.window.activeTextEditor.selection
       → getText(selection) → label: "filename.ts:12-18"
       → pushes ContextChip to this.chips[]
@@ -206,11 +206,11 @@ There is no persistence (`workspaceState` / `globalState`) — chips are in-memo
 
 ## Adding new slash commands
 
-Edit the `SLASH_COMMANDS` array in [src/AgyComposerPanel.ts](../src/AgyComposerPanel.ts). Each entry is a `vscode.QuickPickItem` with `label` (the slash command) and `description`. The label is sent verbatim to the terminal.
+Edit the `SLASH_COMMANDS` array in [src/AgyCompanionPanel.ts](../src/AgyCompanionPanel.ts). Each entry is a `vscode.QuickPickItem` with `label` (the slash command) and `description`. The label is sent verbatim to the terminal.
 
 ## Adding new modes
 
 1. Add the new value to the `SessionMode` union in [src/types.ts](../src/types.ts)
-2. Add a `ModeItem` entry to `MODE_ITEMS` in [src/AgyComposerPanel.ts](../src/AgyComposerPanel.ts)
+2. Add a `ModeItem` entry to `MODE_ITEMS` in [src/AgyCompanionPanel.ts](../src/AgyCompanionPanel.ts)
 3. Add the flag mapping in `TerminalSession.start()` in [src/TerminalSession.ts](../src/TerminalSession.ts)
-4. Add the `<option>` in the `<select>` in `renderHtml()` in [src/AgyComposerPanel.ts](../src/AgyComposerPanel.ts)
+4. Add the `<option>` in the `<select>` in `renderHtml()` in [src/AgyCompanionPanel.ts](../src/AgyCompanionPanel.ts)

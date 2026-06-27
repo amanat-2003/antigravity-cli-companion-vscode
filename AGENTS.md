@@ -16,7 +16,7 @@ Read [docs/implementation_overview.md](docs/implementation_overview.md) before m
 
 **VSCode webview sandbox.** The webview (`media/main.js`) runs in an isolated browser context. It cannot import Node modules, access the filesystem, or call VSCode APIs directly. All host communication goes through `vscode.postMessage()` / `window.addEventListener('message')`. The only VSCode API available in the webview is the object returned by `acquireVsCodeApi()` — which must be called **exactly once**.
 
-**CSP nonce.** Every `<script>` tag in the webview HTML requires a `nonce` attribute matching the Content-Security-Policy header. The nonce is generated in `AgyComposerPanel.renderHtml()`. Never add inline scripts to the HTML without the nonce.
+**CSP nonce.** Every `<script>` tag in the webview HTML requires a `nonce` attribute matching the Content-Security-Policy header. The nonce is generated in `AgyCompanionPanel.renderHtml()`. Never add inline scripts to the HTML without the nonce.
 
 **`retainContextWhenHidden: true`** is set on the WebviewView. This keeps the webview alive when the panel is hidden. Do not remove it — chips added via keyboard shortcut while the panel is collapsed depend on the webview staying alive to receive the `chipAdded` message.
 
@@ -30,9 +30,9 @@ Read [docs/implementation_overview.md](docs/implementation_overview.md) before m
 |---|---|
 | `src/extension.ts` | VSCode activation, command registration |
 | `src/types.ts` | All shared types — edit here first when adding features |
-| `src/AgyComposerPanel.ts` | Panel state, webview HTML, message dispatch, QuickPick calls |
+| `src/AgyCompanionPanel.ts` | Panel state, webview HTML, message dispatch, QuickPick calls |
 | `src/TerminalSession.ts` | Terminal create/send/close lifecycle |
-| `src/contextComposer.ts` | Pure function — composes chips + message into a string |
+| `src/contextCompanion.ts` | Pure function — composes chips + message into a string |
 | `media/main.js` | Webview UI logic, state mirror, DOM rendering |
 | `media/main.css` | All styling — VSCode CSS variables only, no hardcoded colours |
 | `media/icon.svg` | Activity bar icon — uses `currentColor`, no hardcoded colours |
@@ -41,17 +41,17 @@ Read [docs/implementation_overview.md](docs/implementation_overview.md) before m
 
 ## How to make a change
 
-**Adding a slash command:** edit `SLASH_COMMANDS` in `src/AgyComposerPanel.ts`. No other file needs changing.
+**Adding a slash command:** edit `SLASH_COMMANDS` in `src/AgyCompanionPanel.ts`. No other file needs changing.
 
-**Adding a session mode:** update `SessionMode` in `src/types.ts`, add to `MODE_ITEMS` in `src/AgyComposerPanel.ts`, handle the new flag in `TerminalSession.start()`, and add the `<option>` in `renderHtml()`.
+**Adding a session mode:** update `SessionMode` in `src/types.ts`, add to `MODE_ITEMS` in `src/AgyCompanionPanel.ts`, handle the new flag in `TerminalSession.start()`, and add the `<option>` in `renderHtml()`.
 
-**Changing the message format:** edit `composeMessage()` in `src/contextComposer.ts`. It is a pure function with no side effects.
+**Changing the message format:** edit `composeMessage()` in `src/contextCompanion.ts`. It is a pure function with no side effects.
 
-**Changing the UI layout:** edit `renderHtml()` in `src/AgyComposerPanel.ts` (HTML structure) and `media/main.css` (styles). Do not add hardcoded colours — use `--vscode-*` CSS variables.
+**Changing the UI layout:** edit `renderHtml()` in `src/AgyCompanionPanel.ts` (HTML structure) and `media/main.css` (styles). Do not add hardcoded colours — use `--vscode-*` CSS variables.
 
-**Adding a new webview → host message:** add the type to `WebviewMessage` in `src/types.ts`, post it from `media/main.js`, handle it in `AgyComposerPanel.onMessage()`.
+**Adding a new webview → host message:** add the type to `WebviewMessage` in `src/types.ts`, post it from `media/main.js`, handle it in `AgyCompanionPanel.onMessage()`.
 
-**Adding a new host → webview message:** add the type to `HostMessage` in `src/types.ts`, post it via `this.post()` in `AgyComposerPanel`, handle it in the `window.addEventListener('message', ...)` switch in `media/main.js`.
+**Adding a new host → webview message:** add the type to `HostMessage` in `src/types.ts`, post it via `this.post()` in `AgyCompanionPanel`, handle it in the `window.addEventListener('message', ...)` switch in `media/main.js`.
 
 ---
 
@@ -82,4 +82,4 @@ There are no automated tests in this project. Verify changes manually in the Ext
 - Do not call `acquireVsCodeApi()` more than once in `media/main.js` — VSCode throws if called twice.
 - Do not set `border-radius` in `media/main.css` — the boxy aesthetic is intentional.
 - Do not add hardcoded colour values to `media/main.css` — all colours must come from `--vscode-*` variables.
-- Do not remove the 1500ms delay in `AgyComposerPanel.handleSend()` — it allows `agy` to boot before the first message is sent.
+- Do not remove the 1500ms delay in `AgyCompanionPanel.handleSend()` — it allows `agy` to boot before the first message is sent.

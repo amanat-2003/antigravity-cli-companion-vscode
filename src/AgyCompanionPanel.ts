@@ -3,7 +3,7 @@ import * as crypto from 'crypto';
 import * as path from 'path';
 import { ContextChip, HostMessage, PanelState, SessionMode, WebviewMessage } from './types';
 import { TerminalSession } from './TerminalSession';
-import { composeMessage } from './contextComposer';
+import { composeMessage } from './contextCompanion';
 
 const SLASH_COMMANDS: vscode.QuickPickItem[] = [
   { label: '/planning',    description: 'Toggle plan mode ON/OFF' },
@@ -29,8 +29,8 @@ const MODE_ITEMS: ModeItem[] = [
   { label: 'Sandbox',          description: 'Run with terminal restrictions (--sandbox)',                         mode: 'sandbox' },
 ];
 
-export class AgyComposerPanel implements vscode.WebviewViewProvider {
-  static readonly viewId = 'agy-composer.panel';
+export class AgyCompanionPanel implements vscode.WebviewViewProvider {
+  static readonly viewId = 'agy-companion.panel';
 
   private view?: vscode.WebviewView;
   private chips: ContextChip[] = [];
@@ -185,7 +185,7 @@ export class AgyComposerPanel implements vscode.WebviewViewProvider {
   }
 
   private getCliPath(): string {
-    return vscode.workspace.getConfiguration('agy-composer').get<string>('cliPath') ?? 'agy';
+    return vscode.workspace.getConfiguration('agy-companion').get<string>('cliPath') ?? 'agy';
   }
 
   private renderHtml(webview: vscode.Webview): string {

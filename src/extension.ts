@@ -1,31 +1,31 @@
 import * as vscode from 'vscode';
-import { AgyComposerPanel } from './AgyComposerPanel';
+import { AgyCompanionPanel } from './AgyCompanionPanel';
 
 export function activate(context: vscode.ExtensionContext): void {
-  const provider = new AgyComposerPanel(context);
+  const provider = new AgyCompanionPanel(context);
 
   context.subscriptions.push(
     vscode.window.registerWebviewViewProvider(
-      AgyComposerPanel.viewId,
+      AgyCompanionPanel.viewId,
       provider,
       { webviewOptions: { retainContextWhenHidden: true } }
     )
   );
 
   context.subscriptions.push(
-    vscode.commands.registerCommand('agy-composer.openComposer', () => {
-      vscode.commands.executeCommand('workbench.view.extension.agy-composer');
+    vscode.commands.registerCommand('agy-companion.openCompanion', () => {
+      vscode.commands.executeCommand('workbench.view.extension.agy-companion');
     })
   );
 
   context.subscriptions.push(
-    vscode.commands.registerCommand('agy-composer.addSelection', () => {
+    vscode.commands.registerCommand('agy-companion.addSelection', () => {
       provider.addSelectionChip();
     })
   );
 
   context.subscriptions.push(
-    vscode.commands.registerCommand('agy-composer.newSession', () => {
+    vscode.commands.registerCommand('agy-companion.newSession', () => {
       provider.triggerNewSession();
     })
   );

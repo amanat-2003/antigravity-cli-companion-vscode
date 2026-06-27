@@ -1,6 +1,6 @@
-# AGY Input Composer
+# Antigravity CLI Companion - Unofficial
 
-![AGY Input Composer Demo](joined_hq.gif)
+![Antigravity CLI Companion - Unofficial Demo](joined_hq.gif)
 
 A fast, safe, and minimal VS Code companion for [Google's Antigravity CLI](https://antigravity.google) (`agy`).
 
@@ -26,10 +26,10 @@ A fast, safe, and minimal VS Code companion for [Google's Antigravity CLI](https
 
 | Shortcut | Action (Mac / Windows & Linux) |
 |---|---|
-| `Cmd+Alt+G` / `Ctrl+Alt+G` | Open AGY Composer panel |
+| `Cmd+Alt+G` / `Ctrl+Alt+G` | Open AGY Companion panel |
 | `Alt+G` | Add current editor selection to context |
-| `Enter` | Send message (inside composer) |
-| `Shift+Enter` | Insert newline (inside composer) |
+| `Enter` | Send message (inside companion) |
+| `Shift+Enter` | Insert newline (inside companion) |
 
 ## Documentation
 

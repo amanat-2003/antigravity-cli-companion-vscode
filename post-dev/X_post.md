@@ -14,3 +14,14 @@ It's a fast, local UI layer over your terminal:
 Give it a try:
 📦 VS Code Marketplace: https://marketplace.visualstudio.com/items?itemName=amanat-singh.antigravity-cli-companion
 💻 GitHub: https://github.com/amanat-2003/antigravity-cli-companion-vscode
+
+---
+
+### Short Version (Under 280 characters for free X account)
+
+Using Google's Antigravity CLI (`agy`) but hate switching to their IDE or fighting raw terminal context copy-pastes?
+
+I built Antigravity Companion for VS Code. Fast, local, and adds code context with `Alt + G`.
+
+📦 Try it: https://marketplace.visualstudio.com/items?itemName=amanat-singh.antigravity-cli-companion
+
